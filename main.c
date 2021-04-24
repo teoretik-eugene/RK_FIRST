@@ -6,30 +6,30 @@ int check(char *input, char *dict);
 
 int main(int argc, char *argv[])
 {
-    FILE *dict;     // Файл словаря
+    FILE *dict;     // Г”Г Г©Г« Г±Г«Г®ГўГ Г°Гї
     if((dict=fopen(argv[2], "r"))==NULL){        // argv[2]
         printf("ERROR in opening dictionary");
     };
 
-    FILE *input;    // Входной файл
+    FILE *input;    // Г‚ГµГ®Г¤Г­Г®Г© ГґГ Г©Г«
 
     if((input=fopen(argv[1],"r"))==NULL){       // argv[1]
         printf("ERROR in opening input\n");
     }
 
-    FILE *output;   // Указатель на выходной файл
+    FILE *output;   // Г“ГЄГ Г§Г ГІГҐГ«Гј Г­Г  ГўГ»ГµГ®Г¤Г­Г®Г© ГґГ Г©Г«
     remove(argv[3]);                       // argv[3]
 
-    /*вывод содержимого файла в консоль*/
-    int ch;     // Указатель на файл input
-    int dic;    // Указатель на файл dic
+    /*ГўГ»ГўГ®Г¤ Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГЈГ® ГґГ Г©Г«Г  Гў ГЄГ®Г­Г±Г®Г«Гј*/
+    int ch;     // Г“ГЄГ Г§Г ГІГҐГ«Гј Г­Г  ГґГ Г©Г« input
+    int dic;    // Г“ГЄГ Г§Г ГІГҐГ«Гј Г­Г  ГґГ Г©Г« dic
     while((ch=getc(input))!=EOF){
         printf("%c", ch);
     }
     rewind(input);
     printf("\n-------------------\n");
 
-    /*Найдем максимальную длину слова*/
+    /*ГЌГ Г©Г¤ГҐГ¬ Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­ГіГѕ Г¤Г«ГЁГ­Гі Г±Г«Г®ГўГ */
     int max_len=0;
     while((ch=getc(input))!=EOF){
         int lett_=0;
@@ -43,29 +43,29 @@ int main(int argc, char *argv[])
     //printf("%d",max_len);
     //printf("\n");
 
-    /*Начинаем анализировать и искать слова*/
+    /*ГЌГ Г·ГЁГ­Г ГҐГ¬ Г Г­Г Г«ГЁГ§ГЁГ°Г®ГўГ ГІГј ГЁ ГЁГ±ГЄГ ГІГј Г±Г«Г®ГўГ */
     int warning=0;
-    // letters здесь - это найденное СЛОВО!
+    // letters Г§Г¤ГҐГ±Гј - ГЅГІГ® Г­Г Г©Г¤ГҐГ­Г­Г®ГҐ Г‘Г‹ГЋГ‚ГЋ!
     while((ch=getc(input))!=EOF){
 
-        char *letters = (char*)malloc(max_len+1);// Выделили максимальную память для слова
+        char *letters = (char*)malloc(max_len+1);// Г‚Г»Г¤ГҐГ«ГЁГ«ГЁ Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­ГіГѕ ГЇГ Г¬ГїГІГј Г¤Г«Гї Г±Г«Г®ГўГ 
         if(letters==NULL) printf("!ERROR!");
 
         int i =0;
         while((ch!=' ')&&(ch!=EOF)&&(ch!=';')&&(ch!='\n')&&(ch!='-')){
-            letters[i] = ch;    // Создаем локальную строку и помещаем в нее символы,
-            ch = getc(input);   // составляя слово
+            letters[i] = ch;    // Г‘Г®Г§Г¤Г ГҐГ¬ Г«Г®ГЄГ Г«ГјГ­ГіГѕ Г±ГІГ°Г®ГЄГі ГЁ ГЇГ®Г¬ГҐГ№Г ГҐГ¬ Гў Г­ГҐГҐ Г±ГЁГ¬ГўГ®Г«Г»,
+            ch = getc(input);   // Г±Г®Г±ГІГ ГўГ«ГїГї Г±Г«Г®ГўГ®
             i++;
         }
         letters[i]='\0';
 
-        /*Сравнение со словарем*/
+        /*Г‘Г°Г ГўГ­ГҐГ­ГЁГҐ Г±Г® Г±Г«Г®ГўГ Г°ГҐГ¬*/
         int dict_state=0;
         while ((dic=getc(dict))!=EOF){
-            char *dict_word = (char*)malloc(100);   // Можно также выполнить проверку
-            if(dict_word==NULL) printf("!ERROR!");  // на максимальную длину слова
+            char *dict_word = (char*)malloc(100);   // ГЊГ®Г¦Г­Г® ГІГ ГЄГ¦ГҐ ГўГ»ГЇГ®Г«Г­ГЁГІГј ГЇГ°Г®ГўГҐГ°ГЄГі
+            if(dict_word==NULL) printf("!ERROR!");  // Г­Г  Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­ГіГѕ Г¤Г«ГЁГ­Гі Г±Г«Г®ГўГ 
             //char dict_word[100];
-            int j=0;        // Будет счетчиком
+            int j=0;        // ГЃГіГ¤ГҐГІ Г±Г·ГҐГІГ·ГЁГЄГ®Г¬
             while((dic!='\n')&&(dic!=EOF)){
                 dict_word[j]=dic;
                 dic=getc(dict);
@@ -82,10 +82,10 @@ int main(int argc, char *argv[])
             //printf("Nashlos");
         }
         else{
-            /*Создание файла выходного файла*/
+            /*Г‘Г®Г§Г¤Г Г­ГЁГҐ ГґГ Г©Г«Г  ГўГ»ГµГ®Г¤Г­Г®ГЈГ® ГґГ Г©Г«Г */
 
             output=fopen(argv[3], "a+");           // argv[3]
-            // Проверка: было ли уже это слово в словаре?
+            // ГЏГ°Г®ГўГҐГ°ГЄГ : ГЎГ»Г«Г® Г«ГЁ ГіГ¦ГҐ ГЅГІГ® Г±Г«Г®ГўГ® Гў Г±Г«Г®ГўГ Г°ГҐ?
             int re; int repeat_state = 0;
             while((re=getc(output))!=EOF){
                 char *repeat = (char*)malloc(max_len+1);
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
     if(warning) printf("WARNING");
     return 0;
 }
-    // Функция для сравнивания строк
+    // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї Г±Г°Г ГўГ­ГЁГўГ Г­ГЁГї Г±ГІГ°Г®ГЄ
 int check(char *input, char *dict){
     int inp_len = strlen(input);
     int dict_len = strlen(dict);
@@ -124,4 +124,5 @@ int check(char *input, char *dict){
         }
     }
     return 1;
+    
 }
